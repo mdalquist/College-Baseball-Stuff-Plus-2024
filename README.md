@@ -9,3 +9,16 @@ To train the model, I gathered all pitches recorded by a TrackMan at a NCAA Divi
 One thing to note about my Stuff+ model is that since it is based on expected whiff percentages, pitches designed to induce soft contact or takes, like sinkers or slow curveballs, respectively, do not grade out well. Remember, the ability to generate whiffs is only one part of being a good pitcher! My model is designed to isolate that specific quality, so the results should be interpreted as such. If a pitch produces good results, no matter what a Stuff+ model says, throw it!
 
 The notebook in the repository contains all of my code, visualizations, comments, and explanations about why I made certain choices in my model. It is a great resource for anyone looking to build their own Stuff+ model!
+
+Explanation of Features
+- RelSpeed (Velocity): The speed of the pitch leaving the pitcher's hand (in MPH)
+- InducedVertBreak (Induced Vertical Break, IVB): The amount of spin induced vertical break away from a theoretical zero point if the ball were to have no spin or perfectly inefficient spin (in inches) (perfectly inefficient spin is bullet spin)
+- HorzBreak (Horizontal Break, HB): The amount of spin induced horizontal break away from a theoretical zero point if the ball had no spin or perfectly inefficient spin (in inches). Positive is towards a right handed hitter, negative is towards a left handed hitter. Right handed pitchers tend to throw fastballs and changeups with positive HB, and breaking balls with negative HB. Left handed pitchers tend to throw fastballs and changeups with negative HB, and breaking balls with positive HB.
+- RelHeight (Release Height): The height off the ground the pitch is released from (in feet)
+- RelSide (Release Side): The distance away from the center of the rubber the pitch is released from (in feet). Positive is towards third base and negative is towards first base
+- Extension: The distance away from the rubber towards home plate the pitch is released from (in feet)
+- VertApprAngle (Vertical Approach Angle, VAA): The angle at which the pitch apporaches the plate vertically (in degrees). Closer to 0 means flatter, the more negative meanse steeper.
+- HorzApprAngle (Horizontal Approach Angle, HAA): The angle at which the pitch approaches the plate horizontally (in degrees). Positive is towards a left handed hitter, negative is towards a right handed hitter. The larger the absolute value, the steeper the angle.
+- VeloDiff: The difference in velocity of a breaking ball or offspeed pitch from the pitcher's primary fastball velocity (in MPH).
+- IVBDiff: The difference in induced vertical break of a breaking ball or offspeed pitch from the pitcher's primary fastball induced vertical break (in inches).
+- HBDiff: The difference in horizontal break of a breaking ball or offspeed pitch from the pitcher's primary fastball horizontal break (in inches).
