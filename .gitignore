@@ -1,2 +1,5 @@
 # Ignore full csv
 2024_Complete_TrackMan_Data.csv
+
+# Ignore ipynb checkpoints
+**/.ipynb_checkpoints/
