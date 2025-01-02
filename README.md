@@ -1,5 +1,7 @@
 # College-Baseball-Stuff-Plus-2024
 
+App to search results, calculate Stuff+ from custom metrics, and calculate Stuff+ from one TrackMan CSV file: https://college-baseball-stuff-plus-2024.streamlit.app/
+
 Welcome to the repository for my Stuff+ model! Stuff+ is a metric that has become exceedingly popular in the baseball world over the last few years. It aims to measure how "nasty" a pitch is based on its velocity, movement, release point, and apporach angles. It is often done by predicting the expected run value or expected whiff rate for a pitch and comparing it to the average for the pitch type. My Stuff+ model predicts expected whiff rate (xWhiff), then converts the xWhiff to Stuff+ by computing its percent above or below average and adding it to 100. So, a fastball with an xWhiff 50% higher than average fastballs has a Stuff+ of 150. Similarly, a slider with an xWhiff 15% below the average breaking ball has a Stuff+ of 85.
 
 More explanation about Stuff+ can be found at this article by Jack Lambert at Driveline Baseball: https://www.drivelinebaseball.com/2024/05/revisiting-stuff-plus/?srsltid=AfmBOop8_HQfAcpNc0AZPdG_npFfDNEFw3JG0n0wIjjh2gYwL6dYQopp
