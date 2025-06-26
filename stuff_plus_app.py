@@ -50,9 +50,9 @@ bb_model = joblib.load("BB_model.pkl")
 os_model = joblib.load("OS_model.pkl")
 
 # Average whiff rates for each pitch category - taken from original notebook
-fb_avg_whiff = 0.27167388032984463
-bb_avg_whiff = 0.427275318103788
-os_avg_whiff = 0.42386659187930714
+fb_avg_whiff = 0.1845164707936013
+bb_avg_whiff = 0.3204844619335899
+os_avg_whiff = 0.3206088046863918
 
 col1, col2, col3, col4, col5 = st.columns([1,1,1,1,1])
 
