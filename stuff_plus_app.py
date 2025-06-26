@@ -254,9 +254,9 @@ if all_pitches:
     all_pitches = get_pitcher_primary_FB_info(all_pitches)
     
     # Sort pitches and prep data for model
-    all_pitches_FB = all_pitches[(all_pitches['TaggedPitchType'] == 'Fastball') | (all_pitches['TaggedPitchType'] == 'Sinker') | (all_pitches['TaggedPitchType'] == 'Cutter')]
-    all_pitches_BB = all_pitches[(all_pitches['TaggedPitchType'] == 'Curveball') | (all_pitches['TaggedPitchType'] == 'Slider')]
-    all_pitches_OS = all_pitches[(all_pitches['TaggedPitchType'] == 'ChangeUp') | (all_pitches['TaggedPitchType'] == 'Splitter') | (all_pitches['TaggedPitchType'] == 'Knuckleball')]
+    all_pitches_FB = all_pitches[(all_pitches['TaggedPitchType'] == 'Fastball') | (all_pitches['TaggedPitchType'] == 'Sinker') | ((all_pitches['TaggedPitchType'] == 'Cutter') & (all_pitches['primaryFB'] == 'Cutter'))]
+    all_pitches_BB = all_pitches[(all_pitches['TaggedPitchType'] == 'Curveball') | (all_pitches['TaggedPitchType'] == 'Slider') | ((all_pitches['TaggedPitchType'] == 'Cutter') & (all_pitches['primaryFB'] != 'Cutter'))]
+    all_pitches_OS = all_pitches[(all_pitches['TaggedPitchType'] == 'ChangeUp') | (all_pitches['TaggedPitchType'] == 'Splitter')]
     fb_data = all_pitches_FB[['RelSpeed', 'RelHeight', 'RelSide', 'Extension', 'InducedVertBreak', 'StandardizedHB', 'AdjustedVAA', 'AdjustedHAA']].dropna()
     
     all_pitches_BB['VeloDiff'] = all_pitches_BB['RelSpeed'] - all_pitches_BB['RelSpeedFBavg']
