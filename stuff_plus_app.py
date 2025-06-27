@@ -144,7 +144,7 @@ if st.button("Calculate"):
         pitch = pd.DataFrame([{'RelSpeed': float(velo), 'RelHeight': float(height), 'RelSide': float(side), 'Extension': float(extension), 'InducedVertBreak': float(ivb), 'StandardizedHB': hb, 'AdjustedVAA': adj_vaa, 'AdjustedHAA': adj_haa}])
         result = fb_model.predict_proba(pitch)
         x_whiff = result[0][1]
-        stuff_plus = int((x_whiff - fb_avg_whiff) / fb_sd_whiff) * 25 + 100)
+        stuff_plus = int(((x_whiff - fb_avg_whiff) / fb_sd_whiff) * 25 + 100)
         st.markdown(stuff_plus)
 
     if pitch_type == 'Slider' or pitch_type == 'Curveball' or (pitch_type == 'Cutter' and primary_fb != 'Cutter'):
@@ -154,7 +154,7 @@ if st.button("Calculate"):
         pitch = pd.DataFrame([{'RelSpeed': float(velo), 'RelHeight': float(height), 'RelSide': float(side), 'Extension': float(extension), 'InducedVertBreak': float(ivb), 'StandardizedHB': hb, 'AdjustedVAA': adj_vaa, 'AdjustedHAA': adj_haa, 'VeloDiff': velodiff, 'IVBDiff': ivbdiff, 'HBDiff': hbdiff}])
         result = bb_model.predict_proba(pitch)
         x_whiff = result[0][1]
-        stuff_plus = int((x_whiff - bb_avg_whiff) / bb_sd_whiff) * 25 + 100)
+        stuff_plus = int(((x_whiff - bb_avg_whiff) / bb_sd_whiff) * 25 + 100)
         st.markdown(stuff_plus)
 
     if pitch_type == 'ChangeUp' or pitch_type == 'Splitter':
@@ -164,7 +164,7 @@ if st.button("Calculate"):
         pitch = pd.DataFrame([{'RelSpeed': float(velo), 'RelHeight': float(height), 'RelSide': float(side), 'Extension': float(extension), 'InducedVertBreak': float(ivb), 'StandardizedHB': hb, 'AdjustedVAA': adj_vaa, 'AdjustedHAA': adj_haa, 'VeloDiff': velodiff, 'IVBDiff': ivbdiff, 'HBDiff': hbdiff}])
         result = os_model.predict_proba(pitch)
         x_whiff = result[0][1]
-        stuff_plus = int((x_whiff - os_avg_whiff) / os_sd_whiff) * 25 + 100)
+        stuff_plus = int(((x_whiff - os_avg_whiff) / os_sd_whiff) * 25 + 100)
         st.markdown(stuff_plus)
         
 
