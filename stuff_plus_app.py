@@ -54,6 +54,11 @@ fb_avg_whiff = 0.1845164707936013
 bb_avg_whiff = 0.3204844619335899
 os_avg_whiff = 0.3206088046863918
 
+# Standard Deviation of whiff rates for each pitch category - taken from original notebook
+fb_sd_whiff = 0.04856098798686459
+bb_sd_whiff = 0.041828507247725584
+os_sd_whiff = 0.0516169174758499
+
 col1, col2, col3, col4, col5 = st.columns([1,1,1,1,1])
 
 with col1:
@@ -139,7 +144,7 @@ if st.button("Calculate"):
         pitch = pd.DataFrame([{'RelSpeed': float(velo), 'RelHeight': float(height), 'RelSide': float(side), 'Extension': float(extension), 'InducedVertBreak': float(ivb), 'StandardizedHB': hb, 'AdjustedVAA': adj_vaa, 'AdjustedHAA': adj_haa}])
         result = fb_model.predict_proba(pitch)
         x_whiff = result[0][1]
-        stuff_plus = int((x_whiff / fb_avg_whiff) * 100)
+        stuff_plus = int((x_whiff - fb_avg_whiff) / fb_sd_whiff) * 25 + 100)
         st.markdown(stuff_plus)
 
     if pitch_type == 'Slider' or pitch_type == 'Curveball' or (pitch_type == 'Cutter' and primary_fb != 'Cutter'):
@@ -149,7 +154,7 @@ if st.button("Calculate"):
         pitch = pd.DataFrame([{'RelSpeed': float(velo), 'RelHeight': float(height), 'RelSide': float(side), 'Extension': float(extension), 'InducedVertBreak': float(ivb), 'StandardizedHB': hb, 'AdjustedVAA': adj_vaa, 'AdjustedHAA': adj_haa, 'VeloDiff': velodiff, 'IVBDiff': ivbdiff, 'HBDiff': hbdiff}])
         result = bb_model.predict_proba(pitch)
         x_whiff = result[0][1]
-        stuff_plus = int((x_whiff / bb_avg_whiff) * 100)
+        stuff_plus = int((x_whiff - bb_avg_whiff) / bb_sd_whiff) * 25 + 100)
         st.markdown(stuff_plus)
 
     if pitch_type == 'ChangeUp' or pitch_type == 'Splitter':
@@ -159,7 +164,7 @@ if st.button("Calculate"):
         pitch = pd.DataFrame([{'RelSpeed': float(velo), 'RelHeight': float(height), 'RelSide': float(side), 'Extension': float(extension), 'InducedVertBreak': float(ivb), 'StandardizedHB': hb, 'AdjustedVAA': adj_vaa, 'AdjustedHAA': adj_haa, 'VeloDiff': velodiff, 'IVBDiff': ivbdiff, 'HBDiff': hbdiff}])
         result = os_model.predict_proba(pitch)
         x_whiff = result[0][1]
-        stuff_plus = int((x_whiff / os_avg_whiff) * 100)
+        stuff_plus = int((x_whiff - os_avg_whiff) / os_sd_whiff) * 25 + 100)
         st.markdown(stuff_plus)
         
 
@@ -273,17 +278,17 @@ if all_pitches:
     results_FB = fb_model.predict_proba(fb_data)
     x_whiff_FB = [x[1] for x in results_FB]
     all_pitches_FB['xWhiff'] = x_whiff_FB
-    all_pitches_FB['Stuff+'] = (all_pitches_FB['xWhiff'] / fb_avg_whiff) * 100
+    all_pitches_FB['Stuff+'] = ((all_pitches_FB['xWhiff'] - fb_avg_whiff) / fb_sd_whiff) * 25 + 100
     
     results_BB = bb_model.predict_proba(bb_data)
     x_whiff_BB = [x[1] for x in results_BB]
     all_pitches_BB['xWhiff'] = x_whiff_BB
-    all_pitches_BB['Stuff+'] = (all_pitches_BB['xWhiff'] / bb_avg_whiff) * 100
+    all_pitches_BB['Stuff+'] = ((all_pitches_BB['xWhiff'] - bb_avg_whiff) / bb_sd_whiff) * 25 + 100
     
     results_OS = os_model.predict_proba(os_data)
     x_whiff_OS = [x[1] for x in results_OS]
     all_pitches_OS['xWhiff'] = x_whiff_OS
-    all_pitches_OS['Stuff+'] = (all_pitches_OS['xWhiff'] / os_avg_whiff) * 100
+    all_pitches_OS['Stuff+'] = ((all_pitches_OS['xWhiff'] - os_avg_whiff) / os_sd_whiff) * 25 + 100
 
     # Calculate Stuff+ by Pitcher
     stuff_plusFB = all_pitches_FB.groupby(['Pitcher', 'PitcherTeam', 'TaggedPitchType'])[['Stuff+', 'RelSpeed', 'RelHeight', 'RelSide', 'Extension', 'InducedVertBreak', 'HorzBreak', 'AdjustedVAA', 'AdjustedHAA']].mean()
